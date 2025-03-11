@@ -200,6 +200,9 @@ python whisper_vox.py 動画ファイル.mp4 -m medium
 # 言語を指定（デフォルトは日本語 'ja'）
 python whisper_vox.py 動画ファイル.mp4 -l en
 
+# 出力形式を指定（srt または txt）
+python whisper_vox.py 動画ファイル.mp4 -f txt
+
 # CPUを強制的に使用
 python whisper_vox.py 動画ファイル.mp4 --cpu
 
