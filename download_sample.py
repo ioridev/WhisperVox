@@ -22,9 +22,9 @@ SAMPLE_VIDEOS = {
         "description": "Big Buck Bunny (英語音声、英語文字起こし)"
     },
     "ja_audio": {
-        "url": "https://www.nhk.or.jp/archives/creative/material/1M1904011_1_1.mp4",
+        "url": "https://archive.org/download/NHK_World_Japan_20200407/NHK_World_Japan_20200407.mp4",
         "name": "sample_video_ja.mp4",
-        "description": "NHKクリエイティブライブラリー (日本語音声、日本語文字起こし)"
+        "description": "NHK World Japan (日本語音声、日本語文字起こし)"
     }
 }
 
