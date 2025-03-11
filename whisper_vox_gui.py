@@ -87,6 +87,7 @@ class DropArea(QWidget):
     """ファイルをドロップできるエリア"""
     def __init__(self, parent=None):
         super().__init__(parent)
+        self.main_window = parent
         self.setAcceptDrops(True)
         self.setMinimumHeight(200)
         self.setStyleSheet("""
@@ -120,7 +121,7 @@ class DropArea(QWidget):
             for url in mime_data.urls():
                 file_path = url.toLocalFile()
                 if self._is_valid_video_extension(file_path):
-                    self.parent().set_video_file(file_path)
+                    self.main_window.set_video_file(file_path)
                     break
             event.acceptProposedAction()
     
