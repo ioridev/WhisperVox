@@ -13,13 +13,13 @@ import shutil
 SAMPLE_VIDEOS = {
     "ja": {
         "url": "https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4",
-        "name": "sample_video_ja.mp4",
-        "description": "Big Buck Bunny (日本語吹き替えなし - 英語音声)"
+        "name": "sample_video.mp4",
+        "description": "Big Buck Bunny (英語音声、日本語文字起こし)"
     },
     "en": {
         "url": "https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4",
-        "name": "sample_video_en.mp4",
-        "description": "Big Buck Bunny (英語音声)"
+        "name": "sample_video.mp4",
+        "description": "Big Buck Bunny (英語音声、英語文字起こし)"
     }
 }
 
