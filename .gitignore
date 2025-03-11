@@ -1,0 +1,52 @@
+# Python関連
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# 仮想環境
+venv/
+ENV/
+env/
+
+# Whisperモデルキャッシュ
+*.pt
+
+# 一時ファイル
+temp_audio.mp3
+*.mp3
+*.wav
+
+# サンプル動画と生成された字幕
+sample_video*.mp4
+*.mp4
+*.srt
+
+# ログファイル
+*.log
+
+# エディタ設定
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS固有のファイル
+.DS_Store
+Thumbs.db
