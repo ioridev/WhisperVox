@@ -12,12 +12,12 @@ import shutil
 # サンプル動画のURL（クリエイティブコモンズライセンスの動画）
 SAMPLE_VIDEOS = {
     "ja": {
-        "url": "https://download.blender.org/demo/movies/BBB/bbb_sunflower_1080p_30fps_normal.mp4",
+        "url": "https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4",
         "name": "sample_video_ja.mp4",
         "description": "Big Buck Bunny (日本語吹き替えなし - 英語音声)"
     },
     "en": {
-        "url": "https://download.blender.org/demo/movies/BBB/bbb_sunflower_1080p_30fps_normal.mp4",
+        "url": "https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4",
         "name": "sample_video_en.mp4",
         "description": "Big Buck Bunny (英語音声)"
     }
