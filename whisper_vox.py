@@ -26,8 +26,17 @@ def format_duration(seconds):
     minutes %= 60
     return f"{int(hours)}時間{int(minutes)}分{seconds:.2f}秒"
 
-def generate_subtitles(video_path, output_srt_path="output.srt", model_size="large", language="ja", device=None):
-    """動画から字幕を生成する関数"""
+def generate_subtitles(video_path, output_path="output.srt", model_size="large", language="ja", device=None, output_format="srt"):
+    """動画から字幕を生成する関数
+    
+    Args:
+        video_path: 処理する動画ファイルのパス
+        output_path: 出力ファイルのパス
+        model_size: 使用するWhisperモデルのサイズ
+        language: 文字起こしの言語
+        device: 使用するデバイス（"cuda"または"cpu"）
+        output_format: 出力形式（"srt"または"txt"）
+    """
     start_time = time.time()
     
     # デバイスの自動検出と設定
@@ -82,18 +91,27 @@ def generate_subtitles(video_path, output_srt_path="output.srt", model_size="lar
         transcribe_time = time.time() - transcribe_start
         print(f"文字起こし完了 ({format_duration(transcribe_time)})")
         
-        # 3. SRT形式で保存
-        with open(output_srt_path, "w", encoding="utf-8") as f:
-            for i, segment in enumerate(result["segments"]):
-                start = segment["start"]
-                end = segment["end"]
-                text = segment["text"]
-                f.write(f"{i+1}\n")
-                f.write(f"{format_time(start)} --> {format_time(end)}\n")
-                f.write(f"{text.strip()}\n\n")
+        # 3. 指定された形式で保存
+        if output_format == "srt":
+            # SRT形式で保存
+            with open(output_path, "w", encoding="utf-8") as f:
+                for i, segment in enumerate(result["segments"]):
+                    start = segment["start"]
+                    end = segment["end"]
+                    text = segment["text"]
+                    f.write(f"{i+1}\n")
+                    f.write(f"{format_time(start)} --> {format_time(end)}\n")
+                    f.write(f"{text.strip()}\n\n")
+            print(f"SRTファイル保存: {output_path}")
+        elif output_format == "txt":
+            # テキスト形式で保存
+            with open(output_path, "w", encoding="utf-8") as f:
+                # 全文を連結して保存
+                full_text = result["text"]
+                f.write(full_text)
+            print(f"テキストファイル保存: {output_path}")
         
         total_time = time.time() - start_time
-        print(f"SRTファイル保存: {output_srt_path}")
         print(f"合計処理時間: {format_duration(total_time)}")
         
         # 処理した音声の長さを取得
@@ -114,10 +132,11 @@ def main():
     """メイン関数"""
     parser = argparse.ArgumentParser(description="WhisperVox - GPU加速による高速文字起こしツール")
     parser.add_argument("video", help="処理する動画ファイルのパス")
-    parser.add_argument("-o", "--output", help="出力するSRTファイルのパス", default=None)
-    parser.add_argument("-m", "--model", help="使用するWhisperモデルのサイズ", 
+    parser.add_argument("-o", "--output", help="出力ファイルのパス", default=None)
+    parser.add_argument("-m", "--model", help="使用するWhisperモデルのサイズ",
                         choices=["tiny", "base", "small", "medium", "large"], default="large")
     parser.add_argument("-l", "--language", help="文字起こしの言語", default="ja")
+    parser.add_argument("-f", "--format", help="出力形式", choices=["srt", "txt"], default="srt")
     parser.add_argument("--cpu", help="CPUを強制的に使用する", action="store_true")
     
     args = parser.parse_args()
@@ -125,7 +144,9 @@ def main():
     # 出力ファイル名が指定されていない場合、入力ファイル名から自動生成
     if args.output is None:
         base_name = os.path.splitext(os.path.basename(args.video))[0]
-        args.output = f"{base_name}.srt"
+        # 出力形式に応じた拡張子を設定
+        extension = ".srt" if args.format == "srt" else ".txt"
+        args.output = f"{base_name}{extension}"
     
     # デバイスの設定
     device = "cpu" if args.cpu else None
@@ -133,10 +154,11 @@ def main():
     # 字幕生成実行
     generate_subtitles(
         video_path=args.video,
-        output_srt_path=args.output,
+        output_path=args.output,
         model_size=args.model,
         language=args.language,
-        device=device
+        device=device,
+        output_format=args.format
     )
 
 if __name__ == "__main__":
