@@ -13,13 +13,18 @@ import shutil
 SAMPLE_VIDEOS = {
     "ja": {
         "url": "https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4",
-        "name": "sample_video.mp4",
+        "name": "sample_video_en.mp4",
         "description": "Big Buck Bunny (英語音声、日本語文字起こし)"
     },
     "en": {
         "url": "https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4",
-        "name": "sample_video.mp4",
+        "name": "sample_video_en.mp4",
         "description": "Big Buck Bunny (英語音声、英語文字起こし)"
+    },
+    "ja_audio": {
+        "url": "https://www.nhk.or.jp/archives/creative/material/1M1904011_1_1.mp4",
+        "name": "sample_video_ja.mp4",
+        "description": "NHKクリエイティブライブラリー (日本語音声、日本語文字起こし)"
     }
 }
 
@@ -53,11 +58,11 @@ def check_ffmpeg():
 
 def main():
     parser = argparse.ArgumentParser(description="サンプル動画をダウンロードしてWhisperVoxをテスト")
-    parser.add_argument("-l", "--language", choices=["ja", "en"], default="ja", 
-                        help="ダウンロードする動画の言語 (デフォルト: ja)")
-    parser.add_argument("-m", "--model", choices=["tiny", "base", "small", "medium", "large"], 
+    parser.add_argument("-l", "--language", choices=["ja", "en", "ja_audio"], default="ja",
+                        help="動画と文字起こしの言語 (ja: 英語音声・日本語文字起こし, en: 英語音声・英語文字起こし, ja_audio: 日本語音声・日本語文字起こし) (デフォルト: ja)")
+    parser.add_argument("-m", "--model", choices=["tiny", "base", "small", "medium", "large"],
                         default="small", help="使用するWhisperモデル (デフォルト: small)")
-    parser.add_argument("--no-transcribe", action="store_true", 
+    parser.add_argument("--no-transcribe", action="store_true",
                         help="ダウンロードのみ行い、文字起こしは行わない")
     parser.add_argument("--cpu", action="store_true", help="CPUを強制的に使用")
     
